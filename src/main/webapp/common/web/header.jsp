@@ -17,7 +17,7 @@
                 <div class="ht-right">
                 	
                 <security:authorize access="isAnonymous()">
-                	<a class="login-panel"  style="margin-left:20px" href="#">Register</a>
+                	<a class="login-panel"  style="margin-left:20px" href="<c:url value="/web/register"/>">Register</a>
 				  	<a href="<c:url value="/web/login"/>" class="login-panel"><i class="fa fa-user"></i>Login</a>	
 				 	 
 				</security:authorize>

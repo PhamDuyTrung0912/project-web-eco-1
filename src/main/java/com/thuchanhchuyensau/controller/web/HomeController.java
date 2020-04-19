@@ -28,6 +28,12 @@ public class HomeController {
 	      return mav;
 	   }
 	  
+	  @RequestMapping(value = "/web/register", method = RequestMethod.GET)
+	   public ModelAndView RegisterPage() {
+	      ModelAndView mav = new ModelAndView("register");
+	      return mav;
+	   }
+	  
 	  @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
 		public ModelAndView pageEror() {
 			return new ModelAndView("redirect:/web/login?accessDenied");
