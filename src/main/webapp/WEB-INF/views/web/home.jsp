@@ -13,7 +13,11 @@
 </head>
 
 <body>
-
+	
+	<div id="preloder">
+        <div class="loader"></div>
+    </div>
+	
 	<!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="hero-items owl-carousel">
@@ -91,7 +95,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="img/products/women-large.jpg">
+                    <div class="product-large set-bg" data-setbg="https://via.placeholder.com/670x320">
                         <h2>Women’s</h2>
                         <a href="#">Discover More</a>
                     </div>
@@ -202,44 +206,7 @@
         </div>
     </section>
     <!-- Women Banner Section End -->
-
-    <!-- Deal Of The Week Section Begin-->
-    <section class="deal-of-week set-bg spad" data-setbg="img/time-bg.jpg">
-        <div class="container">
-            <div class="col-lg-6 text-center">
-                <div class="section-title">
-                    <h2>Deal Of The Week</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br /> do ipsum dolor sit amet,
-                        consectetur adipisicing elit </p>
-                    <div class="product-price">
-                        $35.00
-                        <span>/ HanBag</span>
-                    </div>
-                </div>
-                <div class="countdown-timer" id="countdown">
-                    <div class="cd-item">
-                        <span>56</span>
-                        <p>Days</p>
-                    </div>
-                    <div class="cd-item">
-                        <span>12</span>
-                        <p>Hrs</p>
-                    </div>
-                    <div class="cd-item">
-                        <span>40</span>
-                        <p>Mins</p>
-                    </div>
-                    <div class="cd-item">
-                        <span>52</span>
-                        <p>Secs</p>
-                    </div>
-                </div>
-                <a href="#" class="primary-btn">Shop Now</a>
-            </div>
-        </div>
-    </section>
-    <!-- Deal Of The Week Section End -->
-
+    
     <!-- Man Banner Section Begin -->
     <section class="man-banner spad">
         <div class="container-fluid">
@@ -256,7 +223,7 @@
                     <div class="product-slider owl-carousel">
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-1.jpg" alt="">
+                                <img src="https://via.placeholder.com/370x450" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -280,7 +247,7 @@
                         </div>
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-2.jpg" alt="">
+                                <img src="https://via.placeholder.com/370x450" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -302,7 +269,7 @@
                         </div>
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-3.jpg" alt="">
+                                <img src="https://via.placeholder.com/370x450" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -324,7 +291,7 @@
                         </div>
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-4.jpg" alt="">
+                                <img src="https://via.placeholder.com/370x450" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -347,7 +314,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="img/products/man-large.jpg">
+                    <div class="product-large set-bg m-large" data-setbg="https://via.placeholder.com/670x320">
                         <h2>Men’s</h2>
                         <a href="#">Discover More</a>
                     </div>

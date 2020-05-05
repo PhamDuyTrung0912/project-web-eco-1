@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.cj.log.Log;
 import com.thuchanhchuyensau.dto.MyUser;
 
 @Controller(value = "homeControllerOfWeb")
@@ -41,9 +42,8 @@ public class HomeController {
 	  
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
 		public ModelAndView logoutPage(HttpServletRequest request,HttpServletResponse response) {
-		  Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-		  
-		  if(auth!=null) {
+		  Authentication auth= SecurityContextHolder.getContext().getAuthentication();	  
+		  if(auth!=null) {	
 			  new SecurityContextLogoutHandler().logout(request, response, auth);
 		  }
 			return new ModelAndView("redirect:/web/home");

@@ -24,7 +24,8 @@
 				<security:authorize access="isAuthenticated()">
 					<a class="login-panel" href="<c:url value="/logout"/>">Logout</a>
 					<a class="login-panel" style="margin-right: 20px" href="#">Welcome
-						<%=SecurityUtils.getPrincipal().getFullName()%></a>
+						<%=SecurityUtils.getPrincipal().getFullName()%>,
+						</a>
 				</security:authorize>
 				<div class="top-social">
 					<a href="#"><i class="ti-facebook"></i></a> 

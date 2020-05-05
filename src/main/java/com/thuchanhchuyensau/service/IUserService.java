@@ -1,5 +1,10 @@
 package com.thuchanhchuyensau.service;
 
-public interface IUserService {
+import org.springframework.stereotype.Service;
 
+import com.thuchanhchuyensau.dto.UserDTO;
+
+
+public interface IUserService {
+	UserDTO save(UserDTO dto);
 }

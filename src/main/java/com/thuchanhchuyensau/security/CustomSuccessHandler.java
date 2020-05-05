@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.SysexMessage;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -47,7 +48,9 @@ private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 		String url="/admin/home";
 		//if role admin so redirect to controller : /quan-tri/trang-chu
 		
-		// if role user : /trang-chu
+		// if role user : /trang-chu	
+		
+		
 		List<String> roles = SecurityUtils.getAuthorities();
 		if(isAdmin(roles)) {
 			url="/admin/home";

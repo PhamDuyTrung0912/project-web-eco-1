@@ -15,7 +15,8 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js">
+</script>
     <link rel="stylesheet" href="<c:url value='/template/web/css/bootstrap.min.css'/>" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value='/template/web/css/font-awesome.min.css'/>" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value='/template/web/css/themify-icons.css'/>" type="text/css" rel="stylesheet">
@@ -42,7 +43,7 @@
 	<script src="<c:url value='/template/web/js/jquery-ui.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery.countdown.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery.nice-select.min.js'/>"></script>
-	
+
 	<script src="<c:url value='/template/web/js/jquery.zoom.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery.dd.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery.slicknav.js'/>"></script>
