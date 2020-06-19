@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ include file="/common/taglib.jsp" %>
+	<c:url var="ImageURL" value="/assets/image" />
 <!DOCTYPE html>
 
 <html>
@@ -21,7 +22,9 @@
 	<!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="hero-items owl-carousel">
-            <div class="single-hero-items set-bg" data-setbg="https://via.placeholder.com/1900x725">
+        	
+         <c:forEach var="item" items="${adverting.listResult}">	
+            <div class="single-hero-items set-bg" data-setbg="${ImageURL}/${item.imageAdvert}.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-5">
@@ -37,65 +40,19 @@
                     </div>
                 </div>
             </div>
-            <div class="single-hero-items set-bg" data-setbg="https://via.placeholder.com/1900x725">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <span>Bag,kids</span>
-                            <h1>Black friday</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore</p>
-                            <a href="#" class="primary-btn">Shop Now</a>
-                        </div>
-                    </div>
-                    <div class="off-card">
-                        <h2>Sale <span>50%</span></h2>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
+           
         </div>
     </section>
     <!-- Hero Section End -->
 
-    <!-- Banner Section Begin -->
-    <div class="banner-section spad">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="single-banner">
-                        <img src='https://via.placeholder.com/670x320' alt="">
-                        <div class="inner-text">
-                            <h4>Men’s</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="single-banner">
-                        <img src="https://via.placeholder.com/670x320" alt="">
-                        <div class="inner-text">
-                            <h4>Women’s</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="single-banner">
-                        <img src="https://via.placeholder.com/670x320" alt="">
-                        <div class="inner-text">
-                            <h4>Kid’s</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Banner Section End -->
 
     <!-- Women Banner Section Begin -->
-    <section class="women-banner spad">
+    <section class="women-banner spad" style="margin-top: 50px">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="https://via.placeholder.com/670x320">
+                    <div class="product-large set-bg" data-setbg="${ImageURL}/women-large.jpg">
                         <h2>Women’s</h2>
                         <a href="#">Discover More</a>
                     </div>
@@ -103,16 +60,34 @@
                 <div class="col-lg-8 offset-lg-1">
                     <div class="filter-control">
                         <ul>
-                            <li class="active">Clothings</li>
-                            <li>HandBag</li>
-                            <li>Shoes</li>
-                            <li>Accessories</li>
+                        	<li class="active">
+                        		<button style="border: none; background: white; text-transform:capitalize; " 
+									 type="button" id="btnHandbag">
+									 All
+								 </button>
+                        	<li>
+                           <c:forEach var="itemCategory" items="${category.listResult}">
+                           	 <li >
+                           		<button style="border: none; background: white; text-transform:capitalize; " 
+									 type="button" id="btn${itemCategory.code}">
+									 ${itemCategory.name}
+								 </button>
+                            </li>
+                           </c:forEach>        
                         </ul>
                     </div>
+                    
                     <div class="product-slider owl-carousel">
+                    
+                    <c:forEach var="item" items="${model.listResult}">
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
+                            
+                            	<a href="<c:url value='/web/product/${item.id}'/>">
+	                                <img src="${ImageURL}/${item.imageProduct}.jpg" alt="">
+                                </a>
+                              
+                                
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -124,7 +99,12 @@
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
+                                <div class="catagory-name"> 
+                                      <c:forEach var="gen" items="${item.listgender}">
+                                      	${gen.name}
+                                      </c:forEach>            	
+                               
+                                </div>
                                 <a href="#">
                                     <h5>Pure Pineapple</h5>
                                 </a>
@@ -134,72 +114,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                       </c:forEach>
+                       
+                       
+                       
                     </div>
                 </div>
             </div>
@@ -221,6 +139,8 @@
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
+                    
+                    
                         <div class="product-item">
                             <div class="pi-pic">
                                 <img src="https://via.placeholder.com/370x450" alt="">
@@ -245,76 +165,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                                            
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="https://via.placeholder.com/670x320">
+                    <div class="product-large set-bg m-large" data-setbg="${ImageURL}/man-large.jpg">
                         <h2>Men’s</h2>
                         <a href="#">Discover More</a>
                     </div>
@@ -326,37 +181,37 @@
 
     <!-- Instagram Section Begin -->
     <div class="instagram-photo">
-        <div class="insta-item set-bg" data-setbg="img/insta-1.jpg">
+        <div class="insta-item set-bg" data-setbg="${ImageURL}/insta-1.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-2.jpg">
+        <div class="insta-item set-bg" data-setbg="${ImageURL}/insta-2.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-3.jpg">
+        <div class="insta-item set-bg" data-setbg="${ImageURL}/insta-3.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-4.jpg">
+        <div class="insta-item set-bg" data-setbg="${ImageURL}/insta-4.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-5.jpg">
+        <div class="insta-item set-bg" data-setbg="${ImageURL}/insta-5.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-6.jpg">
+        <div class="insta-item set-bg" data-setbg="${ImageURL}/insta-6.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
                 <h5><a href="#">colorlib_Collection</a></h5>
@@ -376,9 +231,17 @@
                 </div>
             </div>
             <div class="row">
+            <c:forEach var="map" items="${news.listResult}">
                 <div class="col-lg-4 col-md-6">
+                
+                	
                     <div class="single-latest-blog">
-                        <img src="img/latest-1.jpg" alt="">
+                    
+                    
+                            	<a href="<c:url value='/web/new/${map.id}'/>">
+	                                <img src="${ImageURL}/${map.newImage}.jpg" alt="">
+                                </a>
+                        
                         <div class="latest-text">
                             <div class="tag-list">
                                 <div class="tag-item">
@@ -386,7 +249,7 @@
                                     May 4,2019
                                 </div>
                                 <div class="tag-item">
-                                    <i class="fa fa-comment-o"></i>
+                                    <i class="fa fa-com ment-o"></i>
                                     5
                                 </div>
                             </div>
@@ -396,56 +259,17 @@
                             <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
                         </div>
                     </div>
+                 
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-blog">
-                        <img src="img/latest-2.jpg" alt="">
-                        <div class="latest-text">
-                            <div class="tag-list">
-                                <div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i>
-                                    May 4,2019
-                                </div>
-                                <div class="tag-item">
-                                    <i class="fa fa-comment-o"></i>
-                                    5
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Vogue's Ultimate Guide To Autumn/Winter 2019 Shoes</h4>
-                            </a>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-blog">
-                        <img src="img/latest-3.jpg" alt="">
-                        <div class="latest-text">
-                            <div class="tag-list">
-                                <div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i>
-                                    May 4,2019
-                                </div>
-                                <div class="tag-item">
-                                    <i class="fa fa-comment-o"></i>
-                                    5
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>How To Brighten Your Wardrobe With A Dash Of Lime</h4>
-                            </a>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
+               
             </div>
             <div class="benefit-items">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="single-benefit">
                             <div class="sb-icon">
-                                <img src="img/icon-1.png" alt="">
+                                <img src="${ImageURL}/icon-1.png" alt="">
                             </div>
                             <div class="sb-text">
                                 <h6>Free Shipping</h6>
@@ -456,7 +280,7 @@
                     <div class="col-lg-4">
                         <div class="single-benefit">
                             <div class="sb-icon">
-                                <img src="img/icon-2.png" alt="">
+                                <img src="${ImageURL}/icon-2.png" alt="">
                             </div>
                             <div class="sb-text">
                                 <h6>Delivery On Time</h6>
@@ -467,7 +291,7 @@
                     <div class="col-lg-4">
                         <div class="single-benefit">
                             <div class="sb-icon">
-                                <img src="img/icon-1.png" alt="">
+                                <img src="${ImageURL}/icon-3.png" alt="">
                             </div>
                             <div class="sb-text">
                                 <h6>Secure Payment</h6>
@@ -481,39 +305,9 @@
     </section>
     <!-- Latest Blog Section End -->
 
-    <!-- Partner Logo Section Begin -->
-    <div class="partner-logo">
-        <div class="container">
-            <div class="logo-carousel owl-carousel">
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-1.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-2.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-3.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-4.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-5.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Partner Logo Section End -->
+   <script type="text/javascript">
+   		
+   </script>
 
 </body>
 
