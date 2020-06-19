@@ -1,16 +1,18 @@
-package com.thuchanhchuyensau.entity;
+	package com.thuchanhchuyensau.entity;
 
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.thuchanhchuyensau.entity.RoleEntity;
@@ -19,6 +21,9 @@ import com.thuchanhchuyensau.entity.RoleEntity;
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
 
+	@Column
+	private String thumbnail;
+	
 	@Column(name = "username")
 	private String userName;
 	
@@ -31,12 +36,38 @@ public class UserEntity extends BaseEntity {
 	@Column(name="status")
 	private Integer status;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.MERGE)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"),
 									inverseJoinColumns = @JoinColumn(name="role_id"))
 	
 	private List<RoleEntity> roles=new ArrayList<>();
 	
+	
+	
+	
+	@OneToOne(mappedBy = "userEntity")
+	private CommentEntity commentEntity;
+	
+	
+	
+	
+	
+	public CommentEntity getCommentEntity() {
+		return commentEntity;
+	}
+
+	public void setCommentEntity(CommentEntity commentEntity) {
+		this.commentEntity = commentEntity;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

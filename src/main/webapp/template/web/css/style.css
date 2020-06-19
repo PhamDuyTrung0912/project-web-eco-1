@@ -1075,6 +1075,8 @@ ol {
 	padding-top: 32px;
 }
 
+
+
 .filter-control ul li {
 	list-style: none;
 	display: inline-block;
@@ -2312,6 +2314,15 @@ ol {
 	line-height: 40px;
 	float: left;
 }
+
+
+
+
+
+
+
+
+
 
 .product-details .quantity .primary-btn.pd-cart {
 	padding: 14px 70px 10px;

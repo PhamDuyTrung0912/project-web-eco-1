@@ -27,10 +27,8 @@ public class UserAPI {
 	private IUserService userService;
 	
 	@PostMapping("/api/user")
-	public UserDTO createUser(@Valid @RequestBody UserDTO userdto) {
-			
-			//return userService.save(userdto);
-		return null;
+	public UserDTO createUser(@Valid @RequestBody UserDTO userdto) {		
+			return userService.save(userdto);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

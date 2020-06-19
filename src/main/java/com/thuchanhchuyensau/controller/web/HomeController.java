@@ -1,27 +1,98 @@
 package com.thuchanhchuyensau.controller.web;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.cj.log.Log;
-import com.thuchanhchuyensau.dto.MyUser;
+import com.thuchanhchuyensau.dto.AdvertingDTO;
+import com.thuchanhchuyensau.dto.CategoryDTO;
+import com.thuchanhchuyensau.dto.GenderDTO;
+import com.thuchanhchuyensau.dto.NewDTO;
+import com.thuchanhchuyensau.dto.ProductDTO;
+import com.thuchanhchuyensau.service.IAdvertingService;
+import com.thuchanhchuyensau.service.ICategoryService;
+import com.thuchanhchuyensau.service.IGenderService;
+import com.thuchanhchuyensau.service.INewService;
+import com.thuchanhchuyensau.service.IProductService;
+import com.thuchanhchuyensau.util.MessageUtil;
 
 @Controller(value = "homeControllerOfWeb")
 public class HomeController {
+		
+	
+		@Autowired
+		private IAdvertingService advertingService;
+		@Autowired
+		private ICategoryService categoryService;
+	
+		@Autowired
+		private IProductService productService;
+		
+		@Autowired
+		private INewService newsService;
+		
+		
+		@Autowired
+		private MessageUtil messageUtil;
 	
 	  @RequestMapping(value = "/web/home", method = RequestMethod.GET)
 	   public ModelAndView homePage() {
+		  
 	      ModelAndView mav = new ModelAndView("web/home");
+	      
+	      ProductDTO productDTO=new ProductDTO();
+	      AdvertingDTO advertingDTO=new AdvertingDTO();
+	      CategoryDTO categoryDTO=new CategoryDTO();
+	      NewDTO newDTO=new NewDTO();
+	      
+	      Pageable pageable=new PageRequest(0,4);
+	      
+	      advertingDTO.setListResult(advertingService.findAll(pageable));
+	      productDTO.setListResult(productService.findByGender("women"));
+	      categoryDTO.setListResult(categoryService.findAll());
+	      newDTO.setListResult(newsService.findall());
+	      
+	      mav.addObject("model",productDTO);
+	      mav.addObject("adverting",advertingDTO);
+	      mav.addObject("category",categoryDTO);
+	      mav.addObject("news",newDTO);
+	      
+	      
 	      return mav;
 	   }
+	  
+	  @RequestMapping(value = "/web/shop", method = RequestMethod.GET)
+	  public ModelAndView shopPage() {
+		  
+		  
+		   ModelAndView mav = new ModelAndView("web/ShopPage");
+		   
+		   ProductDTO productDTO=new ProductDTO();
+		   Pageable pageable=new PageRequest(0,3);
+		   productDTO.setListResult(productService.findAll(pageable));
+		   
+		   mav.addObject("model",productDTO);
+		   
+		   return mav;
+		   
+	  }
+	  
 	  
 	  @RequestMapping(value = "/web/login", method = RequestMethod.GET)
 	   public ModelAndView loginPage() {
@@ -30,10 +101,49 @@ public class HomeController {
 	   }
 	  
 	  @RequestMapping(value = "/web/register", method = RequestMethod.GET)
-	   public ModelAndView RegisterPage() {
+	   public ModelAndView RegisterPage(@RequestParam (required = false) String message) {
 	      ModelAndView mav = new ModelAndView("register");
+	      if(message!=null) {
+	    	  Map<String,String> mess=messageUtil.getMessage(message);
+	    	  	mav.addObject("message", mess.get("message"));
+	    	  	mav.addObject("alert", mess.get("alert"));
+	      }
 	      return mav;
 	   }
+	  
+	  @RequestMapping(value = "/web/product/{id}",method = RequestMethod.GET)
+	  public ModelAndView ProductPage(@PathVariable("id") Long id ) {
+		  ModelAndView mav=new ModelAndView("web/productDetail");
+		  
+		  ProductDTO productDTO= productService.findOneById(id);
+		  
+		  mav.addObject("model",productDTO);
+		 
+		  
+		  return mav;
+	  }
+	  
+	  @RequestMapping(value = "/web/new/{id}",method = RequestMethod.GET)
+	  public ModelAndView NewPage(@PathVariable("id") Long id ) {
+		  ModelAndView mav=new ModelAndView("web/NewsDetail");
+		  
+		 // ProductDTO productDTO= productService.findOneById(id);
+		  
+		 // mav.addObject("model",productDTO);
+		 
+		  
+		  return mav;
+	  }
+	  
+	  
+	  @RequestMapping(value = "/web/cart",method = RequestMethod.GET)
+	  public ModelAndView shoppingCartPage(HttpSession session) {  
+//		  Object obj=session.getAttribute("myCartItems"); 
+		  ModelAndView mav=new ModelAndView("web/shoppingCart");
+		  	  
+		  return mav;
+	  }
+	  
 	  
 	  @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
 		public ModelAndView pageEror() {

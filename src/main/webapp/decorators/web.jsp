@@ -37,8 +37,40 @@
 	<!-- Footer -->
 	<%@ include file="/common/web/footer.jsp" %>
 
+
+	<script>
+	
+	// Get the container element
+	var btnContainer = document.getElementById("menulist");
+
+	// Get all buttons with class="btn" inside the container
+	var btnsul = btnContainer.getElementsByTagName("ul")[0];
+
+	
+	var btns = btnsul.getElementsByTagName("li");
+	// Loop through the buttons and add the active class to the current/clicked button
+	
+	console.log(btns);
+	
+	$.each(btns,function(index,value){
+		
+		$(btns[index]).click(function(){
+			
+			var current=btns.getElementsByClassName("active");
+			current[0].className = current[0].className.replace(" active", "");
+			$(this).attr("class","active");
+		})
+		
+	})
+	
+	
+	
+	</script>
+	
+
+
+
 	<!-- Bootstrap core JavaScript -->
-	<script src="<c:url value='/template/web/js/jquery-3.3.1.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery-ui.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery.countdown.min.js'/>"></script>

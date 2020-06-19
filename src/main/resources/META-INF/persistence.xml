@@ -3,6 +3,14 @@
     <persistence-unit name="persistence-data">  
         <class>com.thuchanhchuyensau.entity.UserEntity</class>
         <class>com.thuchanhchuyensau.entity.RoleEntity</class>
+        <class>com.thuchanhchuyensau.entity.CategoryEntity</class>
+        <class>com.thuchanhchuyensau.entity.ProductEntity</class>
+        <class>com.thuchanhchuyensau.entity.GenderEntity</class>
+        <class>com.thuchanhchuyensau.entity.AdvertingEntity</class>
+        <class>com.thuchanhchuyensau.entity.NewEntity</class>
+        <class>com.thuchanhchuyensau.entity.MediaEntity</class>
+        <class>com.thuchanhchuyensau.entity.TagEntity</class>   
+        <class>com.thuchanhchuyensau.entity.CommentEntity</class>
     </persistence-unit>
 </persistence>
 

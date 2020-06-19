@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.thuchanhchuyensau.util.SecurityUtils"%>
+<c:url var="ImageURL" value="/assets/image" />
+	
 <header class="header-section">
 	<div class="header-top">
 		<div class="container">
@@ -28,7 +30,7 @@
 						</a>
 				</security:authorize>
 				<div class="top-social">
-					<a href="#"><i class="ti-facebook"></i></a> 
+					<a href="facebook.com"><i class="ti-facebook"></i></a> 
 					<a href="#"><i class="ti-twitter-alt"></i></a>
 				</div>
 			</div>
@@ -58,50 +60,49 @@
 				<div class="col-lg-3 text-right col-md-3">
 					<ul class="nav-right">
 						<li class="heart-icon"><a href="#"> <i
-								class="icon_heart_alt"></i> <span>1</span>
+								class="icon_heart_alt"></i> <span>0</span>
 						</a></li>
 						<li class="cart-icon"><a href="#"> <i
-								class="icon_bag_alt"></i> <span>3</span>
+								class="icon_bag_alt"></i> <span>
+								<c:if test = "${sessionScope.myCartNum != null}">
+        						   <c:out value ="${sessionScope.myCartNum}"/>
+      							</c:if>
+      							<c:if test = "${sessionScope.myCartNum == null}">
+        						   <c:out value = "0"/>
+      							</c:if>
+							
+							</span>
 						</a>
 							<div class="cart-hover">
 								<div class="select-items">
 									<table>
 										<tbody>
+										 <c:forEach var="map" items="${sessionScope.myCartItems}">
 											<tr>
-												<td class="si-pic"><img src="img/select-product-1.jpg"
-													alt=""></td>
+												<td class="si-pic"><img src="${ImageURL}/${map.value.product.imageProduct}.jpg" width="100px"
+													alt="abc"></td>
 												<td class="si-text">
 													<div class="product-selected">
-														<p>$60.00 x 1</p>
-														<h6>Kabino Bedside Table</h6>
+														<p>$${map.value.product.price} x ${map.value.quantity}</p>
+														<h6>${map.value.product.name}</h6>
 													</div>
 												</td>
-												<td class="si-close"><i class="ti-close"></i></td>
+												<td class="si-close"><a href="<c:url value="/web/remove/${map.value.product.id}" />"><i class="ti-close"></i></a></td>
 											</tr>
-											<tr>
-												<td class="si-pic"><img src="img/select-product-2.jpg"
-													alt=""></td>
-												<td class="si-text">
-													<div class="product-selected">
-														<p>$60.00 x 1</p>
-														<h6>Kabino Bedside Table</h6>
-													</div>
-												</td>
-												<td class="si-close"><i class="ti-close"></i></td>
-											</tr>
+											</c:forEach>										
 										</tbody>
 									</table>
 								</div>
 								<div class="select-total">
 									<span>total:</span>
-									<h5>$120.00</h5>
+									<h5>$${sessionScope.myCartTotal}</h5>
 								</div>
 								<div class="select-button">
-									<a href="#" class="primary-btn view-card">VIEW CARD</a> <a
-										href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+									<a href="<c:url value='/web/sub'/>" class="primary-btn view-card">VIEW CARD</a> 
+									<a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
 								</div>
 							</div></li>
-						<li class="cart-price">$150.00</li>
+						<li class="cart-price">${sessionScope.myCartTotal}</li>
 					</ul>
 				</div>
 			</div>
@@ -109,30 +110,17 @@
 	</div>
 	<div class="nav-item">
 		<div class="container">
-			<div class="nav-depart">
-				<div class="depart-btn">
-					<i class="ti-menu"></i> <span>All departments</span>
-					<ul class="depart-hover">
-						<li class="active"><a href="#">Women’s Clothing</a></li>
-						<li><a href="#">Men’s Clothing</a></li>
-						<li><a href="#">Underwear</a></li>
-						<li><a href="#">Kid's Clothing</a></li>
-						<li><a href="#">Brand Fashion</a></li>
-						<li><a href="#">Accessories/Shoes</a></li>
-						<li><a href="#">Luxury Brands</a></li>
-						<li><a href="#">Brand Outdoor Apparel</a></li>
+			
+			
+				<nav class="nav-menu mobile-menu" id="menulist">
+					<ul>
+						<li class="active"><a href="<c:url value='/web/home'/>">Home</a></li>
+						<li><a href="<c:url value='/web/shop'/>">Shop</a></li>					
+						<li><a href="./blog.html">Blog</a></li>
+						<li><a href="./contact.html">Contact</a></li>
 					</ul>
-				</div>
-			</div>
-			<nav class="nav-menu mobile-menu">
-				<ul>
-					<li class="active"><a href="./index.html">Home</a></li>
-					<li><a href="./shop.html">Shop</a></li>
-					<li><a href="#">Collection</a></li>
-					<li><a href="./blog.html">Blog</a></li>
-					<li><a href="./contact.html">Contact</a></li>
-				</ul>
-			</nav>
+				</nav>
+			
 			<div id="mobile-menu-wrap"></div>
 		</div>
 	</div>

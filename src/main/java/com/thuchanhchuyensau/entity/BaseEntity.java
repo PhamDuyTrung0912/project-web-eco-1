@@ -1,4 +1,4 @@
-package com.thuchanhchuyensau.entity;
+	package com.thuchanhchuyensau.entity;
 
 import java.util.Date;
 

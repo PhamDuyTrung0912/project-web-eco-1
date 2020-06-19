@@ -1,10 +1,16 @@
 package com.thuchanhchuyensau.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class UserDTO {
+public class UserDTO extends AbstractDTO<UserDTO> {
+	
+	
+	private String thumbnail;
 	
 	@NotEmpty(message = "email is required")
 	@Email
@@ -16,6 +22,27 @@ public class UserDTO {
 	private String fullName;
 	
 	private Integer status;
+	
+	private String roleCode;
+	
+
+	
+	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
 
 	public String getUserName() {
 		return userName;

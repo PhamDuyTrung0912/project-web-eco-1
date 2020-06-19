@@ -39,7 +39,11 @@
     <property name="basename" value="/i18n/message" />
   </bean>
    
+   <mvc:resources mapping="/assets/**" location="/assets/" />
+   
    <mvc:resources mapping="/template/**" location="/template/" />
+   
+   
    
    
 </beans>
