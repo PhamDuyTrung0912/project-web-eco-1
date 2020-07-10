@@ -58,67 +58,145 @@
                     </div>
                 </div>
                 <div class="col-lg-8 offset-lg-1">
-                    <div class="filter-control">
-                        <ul>
-                        	<li class="active">
-                        		<button style="border: none; background: white; text-transform:capitalize; " 
-									 type="button" id="btnHandbag">
-									 All
-								 </button>
-                        	<li>
-                           <c:forEach var="itemCategory" items="${category.listResult}">
-                           	 <li >
-                           		<button style="border: none; background: white; text-transform:capitalize; " 
-									 type="button" id="btn${itemCategory.code}">
-									 ${itemCategory.name}
-								 </button>
-                            </li>
-                           </c:forEach>        
-                        </ul>
-                    </div>
+                   
+              
                     
-                    <div class="product-slider owl-carousel">
                     
-                    <c:forEach var="item" items="${model.listResult}">
-                        <div class="product-item">
-                            <div class="pi-pic">
-                            
-                            	<a href="<c:url value='/web/product/${item.id}'/>">
-	                                <img src="${ImageURL}/${item.imageProduct}.jpg" alt="">
-                                </a>
-                              
+                     <div class="product-tab" style="padding: 0px">
+                        <div class="tab-item" style="display: flex;justify-content: center">
+                            <ul class="nav" role="tablist">
+                                <li>
+                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">All</a>
+                                </li>
                                 
-                                <div class="sale">Sale</div>
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
+                                <c:forEach var="map" items="${category.listResult}">
+	                                 <li>
+	                                	<a data-toggle="tab" href="#tab-${map.code}" role="tab">${map.name}</a>
+	                                </li>        
+                                
+                                </c:forEach>
+     
+                            </ul>
+                        </div>
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="product-content">
+                                        <div class="row">
+                                           		  <div class="product-slider owl-carousel">
+                    
+						                    <c:forEach var="item" items="${model.listResult}">
+						                        <div class="product-item">
+						                            <div class="pi-pic">					                            
+						                            	<a href="<c:url value='/web/product/${item.id}'/>">
+							                                <img src="${ImageURL}/${item.imageProduct}.jpg" alt="">
+						                                </a>
+						                              						                                
+						                                <div class="sale">Sale</div>
+						                                <div class="icon">
+						                                    <i class="icon_heart_alt"></i>
+						                                </div>
+						                                <ul>
+						                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+						                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+						                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+						                                </ul>
+						                            </div>
+						                            <div class="pi-text">
+						                                <div class="catagory-name"> 
+						                                      <c:forEach var="gen" items="${item.listgender}">
+						                                      	${gen.name}
+						                                      </c:forEach>            	
+						                               
+						                                </div>
+						                                <a href="#">
+						                                    <h5>Pure Pineapple</h5>
+						                                </a>
+						                                <div class="product-price">
+						                                    $14.00
+						                                    <span>$35.00</span>
+						                                </div>
+						                            </div>
+						                        </div>
+						                       </c:forEach>
+						                                  
+						                    </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name"> 
-                                      <c:forEach var="gen" items="${item.listgender}">
-                                      	${gen.name}
-                                      </c:forEach>            	
-                               
+                                <c:forEach var="map" items="${category.listResult}">
+	                                 <div class="tab-pane fade" id="tab-${map.code}" role="tabpanel">
+	                                 		<div class="product-content">
+                                        <div class="row">
+                                           		  <div class="product-slider owl-carousel">
+                    
+						                    <c:forEach var="item" items="${model.listResult}">
+						                        <div class="product-item">
+						                            <div class="pi-pic">					                            
+						                            	<a href="<c:url value='/web/product/${item.id}'/>">
+							                                <img src="${ImageURL}/${item.imageProduct}.jpg" alt="">
+						                                </a>
+						                              						                                
+						                                <div class="sale">Sale</div>
+						                                <div class="icon">
+						                                    <i class="icon_heart_alt"></i>
+						                                </div>
+						                                <ul>
+						                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+						                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+						                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+						                                </ul>
+						                            </div>
+						                            <div class="pi-text">
+						                                <div class="catagory-name"> 
+						                                      <c:forEach var="gen" items="${item.listgender}">
+						                                      	${gen.name}
+						                                      </c:forEach>            	
+						                               
+						                                </div>
+						                                <a href="#">
+						                                    <h5>Pure Pineapple</h5>
+						                                </a>
+						                                <div class="product-price">
+						                                    $14.00
+						                                    <span>$75.00</span>
+						                                </div>
+						                            </div>
+						                        </div>
+						                       </c:forEach>
+						                                  
+						                    </div>
+                                        </div>
+                                    </div>
+	                                 	
+	                                 	
+	                                 	
+	                                 </div>
+                                
+                                
+                                
+                                </c:forEach>
+                                
+                                
+                                 <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                 	
+                                 </div>
+                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                    
                                 </div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
-                                </div>
+                                
+                                 <div class="tab-pane fade" id="tab-4" role="tabpanel">
+                                 	
+                                 </div>
+                                
+                                  <div class="tab-pane fade" id="tab-5" role="tabpanel" >
+                                 	
+                                 </div>
+                                
                             </div>
                         </div>
-                       </c:forEach>
-                       
-                       
-                       
                     </div>
+               
                 </div>
             </div>
         </div>
@@ -307,6 +385,9 @@
 
    <script type="text/javascript">
    		
+   
+   
+   
    </script>
 
 </body>

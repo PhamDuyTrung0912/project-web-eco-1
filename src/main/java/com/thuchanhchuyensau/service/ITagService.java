@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.thuchanhchuyensau.dto.CategoryDTO;
-@Service
-public interface ICategoryService {
+import com.thuchanhchuyensau.dto.TagDTO;
 
-	List<CategoryDTO> findAll();
+@Service
+public interface ITagService {
+	
+	List<TagDTO> tags();
+
 }

@@ -6,27 +6,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.thuchanhchuyensau.dto.FilterDTO;
+import com.thuchanhchuyensau.dto.GenderDTO;
 import com.thuchanhchuyensau.dto.PageableDTO;
 import com.thuchanhchuyensau.dto.ProductDTO;
+import com.thuchanhchuyensau.dto.TagDTO;
+import com.thuchanhchuyensau.service.IProductService;
 import com.thuchanhchuyensau.service.impl.ProductService;
 
-@RestController
+@RestController(value = "productApiOfWeb")
 public class ProductApi {
 	
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
+	
+	
 	
 	@PostMapping("/api/loadmore")
 	public List<ProductDTO> getProductByCategory(@RequestBody PageableDTO pageabledto){
 		
-		Pageable pageable=new PageRequest(pageabledto.getCount(),3);
+		Pageable pageable=new PageRequest(pageabledto.getCount(),6);
 		
 		ProductDTO productDto=new ProductDTO();
 		
@@ -41,4 +43,34 @@ public class ProductApi {
 //		Pageable pageable=new PageRequest(count,6);
 	
 	}
+	
+
+	
+	@PostMapping("/api/filter/gender")
+	public List<ProductDTO> getProductGender(@RequestBody GenderDTO genderDTO){
+		
+		List<ProductDTO> list=new ArrayList<ProductDTO>();
+		
+		list=productService.findByGender(genderDTO.getName());
+	
+		return list;
+		
+//		Pageable pageable=new PageRequest(count,6);
+	
+	}
+	
+	@PostMapping("/api/filter/tag")
+	public List<ProductDTO> getProductTag(@RequestBody TagDTO tagDTO){
+		
+		List<ProductDTO> list=new ArrayList<ProductDTO>();
+		
+		list=productService.findByTag(tagDTO.getName());
+	
+		return list;
+		
+//		Pageable pageable=new PageRequest(count,6);
+	
+	}
+	
+	
 }

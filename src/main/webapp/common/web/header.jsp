@@ -49,11 +49,17 @@
 				<div class="col-lg-7 col-md-7">
 					<div class="advanced-search">
 						<button type="button" class="category-btn">All Categories</button>
+						
+						
+						
 						<div class="input-group">
-							<input type="text" placeholder="What do you need?">
-							<button type="button">
-								<i class="ti-search"></i>
-							</button>
+						<form action="<c:url value='/web/product/search'/>" >
+							<input type="text" placeholder="What do you need?" name="keysearch">
+								<button type="submit">
+									<i class="ti-search"></i>
+								</button>
+						</form>
+							
 						</div>
 					</div>
 				</div>

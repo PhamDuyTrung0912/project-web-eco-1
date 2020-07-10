@@ -20,6 +20,8 @@ public class ProductConvert {
 	@Autowired
 	private CommentConvert commentConvert;
 	
+	@Autowired
+	private TagConvert tagConvert;
 
 	public ProductDTO toDto(ProductEntity entity) {	
 		ProductDTO result = new ProductDTO();
@@ -35,6 +37,7 @@ public class ProductConvert {
 		result.setListgender(genderConvert.toDto(entity.getGenders()));
 		result.setMediaDTOs(mediaConvert.toDto(entity.getMedias()));
 		result.setCommentDTOs(commentConvert.toDto(entity.getCmt()));
+		result.setTagDTOs(tagConvert.toDtoE(entity.getTags()));
 		return result;
 	}
 }

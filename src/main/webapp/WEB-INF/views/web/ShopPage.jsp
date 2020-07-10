@@ -4,6 +4,8 @@
 	<c:url var="ImageURL" value="/assets/image" />
 	<c:url var="ProductURL" value="/web/product" />
 	<c:url var="loadMore" value="/api/loadmore" />
+	<c:url var="filterGender" value="/api/filter/gender" />
+	<c:url var="filterTag" value="/api/filter/tag" />
 <!DOCTYPE html>
 
 
@@ -37,9 +39,9 @@
                     <div class="filter-widget">
                         <h4 class="fw-title">Categories</h4>
                         <ul class="filter-catagories">
-                            <li><a href="#">Men</a></li>
-                            <li><a href="#">Women</a></li>
-                            <li><a href="#">Kids</a></li>
+                            <li><a href="#" id="btnfilterMen">Men</a></li>
+                            <li><a href="#" id="btnfilterWomen">Women</a></li>
+                           
                         </ul>
                     </div>
                     
@@ -59,20 +61,19 @@
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                             </div>
                         </div>
-                        <a href="#" class="filter-btn">Filter</a>
+                        <a href="#" class="filter-btn" id="btnFilter">Filter</a>
                     </div>
                   
                     
                     <div class="filter-widget">
                         <h4 class="fw-title">Tags</h4>
                         <div class="fw-tags">
-                            <a href="#">Towel</a>
-                            <a href="#">Shoes</a>
-                            <a href="#">Coat</a>
-                            <a href="#">Dresses</a>
-                            <a href="#">Trousers</a>
-                            <a href="#">Men's hats</a>
-                            <a href="#">Backpack</a>
+                        	<c:forEach var="map" items="${tags.listResult}">
+                        	
+                            <a href="#" id="btn${map.name}"><c:url value="${map.name}"></c:url></a>
+                           
+                            
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -146,6 +147,47 @@
 	
 	<script type="text/javascript">
 		
+	
+	$("a[id^='btn']").click(function(e){
+		e.preventDefault();
+		
+		data={}
+		
+		var rs=e.target.id.slice(3);
+		
+		data['name']=rs;
+		
+		FetchDataFilterTag(data);
+		
+	})
+	
+	
+	$('#btnfilterMen').click(function(e){
+		e.preventDefault();
+		data={}
+		data['name']="men";
+		
+		FetchDataFilterGender(data);
+		
+	})
+
+	$('#btnfilterWomen').click(function(e){
+		e.preventDefault();
+		data={}
+		data['name']="women";
+		
+		FetchDataFilterGender(data);
+		
+	})
+	
+	$('#btnFilter').click(function(e){
+		e.preventDefault();
+		var a=$("div[data-min]")[0].attributes[1].value;
+		console.log(a);
+		
+	})
+	
+	
 	var count=0;
 		$('#btnLoadmore').click(function(e){
 			e.preventDefault();
@@ -155,10 +197,115 @@
 			
 			console.log(data);
 			
+			
+		
 			FetchDataLoadMore(data);
 			
 			
 		})
+		
+		
+		
+		
+		
+		function Temp(rs){
+			var load=$('.product-list .row');
+			var url=$(location).attr('href').split('btl',1)[0];
+			console.log(url);
+			$.each(rs,function(index,value){
+				
+				var image=value.imageProduct;
+				var id=value.id;
+				var temp='${ImageURL}';
+				var temp1='${ProductURL}';
+				var src=url+temp.slice(1)+'/'+image+'.jpg';
+				var href=url+temp1.slice(1)+'/'+id;
+				
+				
+		var html='<div class="col-lg-4 col-sm-6">'
+					+'<div class="product-item">'
+						+'<div class="pi-pic">'
+						+'<a href="'+href+'">'
+               				 +'<img src="'+src+'" alt="">'
+               				 +'</a>'
+             				   +'<div class="sale pp-sale">Sale</div>'
+              					  +'<div class="icon">'
+              					  +'<i class="icon_heart_alt"></i>'
+               					 +'</div>'
+              				  +'<ul>'
+              				  +  '<li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>'
+             			 	  +  '<li class="quick-view"><a href="#">+ Quick View</a></li>'
+               				  +  '<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>'
+                			  +'</ul>'
+                		+'</div>'
+                		+'<div class="pi-text">'
+                        +'<div class="catagory-name">Towel</div>'
+                       + '<a href="#">'
+                           + '<h5>Pure Pineapple</h5>'
+                       +'</a>'
+                        +'<div class="product-price">'
+                          +  '$14.00  '
+                           + '<span>$35.00</span>'
+                        +'</div>'
+                   + '</div>'
+					+'</div>'
+				+'</div>'
+				;
+					
+				load.append(html);
+				console.log(src);
+        
+			});
+		
+		}
+		
+		
+		function FetchDataFilterGender(data){
+					
+					$.ajax({
+						
+						url:'${filterGender}',
+						type:'POST',
+						contentType:'application/json',
+						data:JSON.stringify(data),
+						dataType:'json',
+						success: function(rs){
+							var load=$('.product-list .row').empty();
+							Temp(rs);
+							
+							
+						},
+						error: function(err){
+							
+						}
+						
+					})
+					
+				}
+
+
+		function FetchDataFilterTag(data){
+					
+					$.ajax({
+						
+						url:'${filterTag}',
+						type:'POST',
+						contentType:'application/json',
+						data:JSON.stringify(data),
+						dataType:'json',
+						success: function(rs){
+							var load=$('.product-list .row').empty();
+							Temp(rs);
+							
+							
+						},
+						error: function(err){
+							
+						}
+						
+					})
+					
+				}
 		
 		function FetchDataLoadMore(data){
 			$.ajax({
@@ -169,61 +316,7 @@
 				dataType:'json',
 				success: function(rs){
 						
-						var load=$('.product-list .row');
-						var url=$(location).attr('href').split('btl',1)[0];
-						console.log(url);
-						$.each(rs,function(index,value){
-							
-							var image=value.imageProduct;
-							var id=value.id;
-							var temp='${ImageURL}';
-							var temp1='${ProductURL}';
-							var src=url+temp.slice(1)+'/'+image+'.jpg';
-							var href=url+temp1.slice(1)+'/'+id;
-							
-							
-					var html='<div class="col-lg-4 col-sm-6">'
-								+'<div class="product-item">'
-									+'<div class="pi-pic">'
-									+'<a href="'+href+'">'
-                           				 +'<img src="'+src+'" alt="">'
-                           				 +'</a>'
-                         				   +'<div class="sale pp-sale">Sale</div>'
-                          					  +'<div class="icon">'
-                          					  +'<i class="icon_heart_alt"></i>'
-                           					 +'</div>'
-                          				  +'<ul>'
-                          				  +  '<li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>'
-                         			 	  +  '<li class="quick-view"><a href="#">+ Quick View</a></li>'
-                           				  +  '<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>'
-                            			  +'</ul>'
-                            		+'</div>'
-                            		+'<div class="pi-text">'
-                                    +'<div class="catagory-name">Towel</div>'
-                                   + '<a href="#">'
-                                       + '<h5>Pure Pineapple</h5>'
-                                   +'</a>'
-                                    +'<div class="product-price">'
-                                      +  '$14.00  '
-                                       + '<span>$35.00</span>'
-                                    +'</div>'
-                               + '</div>'
-								+'</div>'
-							+'</div>'
-							
-							
-							;
-								
-							
-							
-							
-						
-							
-							load.append(html);
-							console.log(src);
-                    
-						});
-					
+					Temp(rs);
 					
 				},
 				error: function(err){

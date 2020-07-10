@@ -16,13 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.thuchanhchuyensau.dto.CartDTO;
 import com.thuchanhchuyensau.dto.ProductDTO;
-import com.thuchanhchuyensau.service.impl.ProductService;
+import com.thuchanhchuyensau.service.IProductService;
 
 @Controller
 public class CartController {
 	
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
 	
 	 @RequestMapping(value = "/web/cart/add", method = RequestMethod.GET)
 	    public ModelAndView viewAdd( HttpSession session, @RequestParam("id") long id,@RequestParam("quantity") int quantity) {

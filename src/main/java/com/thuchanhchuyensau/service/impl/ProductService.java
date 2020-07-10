@@ -3,13 +3,21 @@ package com.thuchanhchuyensau.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.thuchanhchuyensau.convert.ProductConvert;
+import com.thuchanhchuyensau.dto.CommentDTO;
 import com.thuchanhchuyensau.dto.ProductDTO;
+import com.thuchanhchuyensau.entity.CommentEntity;
+import com.thuchanhchuyensau.entity.MediaEntity;
 import com.thuchanhchuyensau.entity.ProductEntity;
+import com.thuchanhchuyensau.repository.CommentRepository;
+import com.thuchanhchuyensau.repository.MediaRepository;
 import com.thuchanhchuyensau.repository.ProductRepository;
 import com.thuchanhchuyensau.service.IProductService;
 
@@ -21,6 +29,12 @@ public class ProductService implements IProductService{
 	
 	@Autowired
 	private ProductConvert productConvert;
+	
+	@Autowired
+	private MediaRepository mediaRepository;
+	
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	@Override
 	public List<ProductDTO> findAll(Pageable pageable) {
@@ -43,6 +57,8 @@ public class ProductService implements IProductService{
 		}
 		return productDTOs;
 	}
+	
+	
 
 	@Override
 	public ProductDTO findOneById(Long id) {
@@ -54,6 +70,55 @@ public class ProductService implements IProductService{
 	public List<ProductDTO> findByFilter(String filter) {
 		List<ProductDTO> productDTOs=new ArrayList<>();
 		List<ProductEntity> entities=productRepository.findByCategory(filter);
+		for(ProductEntity item:entities) {
+			ProductDTO productDTO=productConvert.toDto(item);
+			productDTOs.add(productDTO);
+		}
+		return productDTOs;
+	}
+
+	@Override
+	public List<ProductDTO> findByTag(String type) {
+		List<ProductDTO> productDTOs=new ArrayList<>();
+		List<ProductEntity> entities=productRepository.findByTag_Type(type);
+		for(ProductEntity item:entities) {
+			ProductDTO productDTO=productConvert.toDto(item);
+			productDTOs.add(productDTO);
+		}
+		return productDTOs;
+	}
+
+	@Override
+	public List<ProductDTO> findProductKey(String key) {
+		List<ProductDTO> productDTOs=new ArrayList<>();
+		List<ProductEntity> entities=productRepository.findProductkey(key);
+		for(ProductEntity item:entities) {
+			ProductDTO productDTO=productConvert.toDto(item);
+			productDTOs.add(productDTO);
+		}
+		return productDTOs;
+	}
+
+	@Override
+	@Transactional
+	public void deleteProduct(Long id) {
+		//productRepository.deleteRelationshipProduct(id);
+//		int countMedia =mediaRepository.CountByIdProduct(id);
+//		int countComment=commentRepository.CountByIdProduct(id);
+//		if(countMedia > 0 ) {
+//			mediaRepository.DeleteMedia(id);
+//		}
+//		if(countComment>0) {	
+//			commentRepository.DeleteComment(id);	
+//		}
+		productRepository.delete(id);
+		
+	}
+
+	@Override
+	public List<ProductDTO> findAllProduct() {
+		List<ProductDTO> productDTOs=new ArrayList<>();
+		List<ProductEntity> entities=productRepository.findAll();
 		for(ProductEntity item:entities) {
 			ProductDTO productDTO=productConvert.toDto(item);
 			productDTOs.add(productDTO);

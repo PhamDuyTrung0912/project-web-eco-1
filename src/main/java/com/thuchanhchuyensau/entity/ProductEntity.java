@@ -45,23 +45,23 @@ public class ProductEntity extends BaseEntity {
 	private CategoryEntity categoryEntity;
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.MERGE)
+	@ManyToMany(fetch = FetchType.LAZY , cascade = {CascadeType.MERGE} )
 	@JoinTable(name = "product_gender", joinColumns = @JoinColumn(name="product_id"),
 									inverseJoinColumns = @JoinColumn(name="gender_id"))
 	
 	private List<GenderEntity> genders=new ArrayList<>();
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.MERGE)
+	@ManyToMany(fetch = FetchType.LAZY , cascade = {CascadeType.MERGE})
 	@JoinTable(name = "product_tag", joinColumns = @JoinColumn(name="product_id"),
 									inverseJoinColumns = @JoinColumn(name="tag_id"))
 	
 	private List<TagEntity> tags=new ArrayList<>();
 	
-	@OneToMany(mappedBy = "productEntity")
+	@OneToMany(mappedBy = "productEntity",fetch = FetchType.LAZY ,cascade = {CascadeType.REMOVE},orphanRemoval = true)
 	private List<MediaEntity> medias= new ArrayList<>();
 	
-	@OneToMany(mappedBy = "productE")
+	@OneToMany(mappedBy = "productE" ,fetch = FetchType.LAZY ,cascade = {CascadeType.REMOVE},orphanRemoval = true)
 	private List<CommentEntity> cmt= new ArrayList<>();
 	
 	

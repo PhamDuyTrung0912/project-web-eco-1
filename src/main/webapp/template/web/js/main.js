@@ -195,6 +195,8 @@
 	});
 	minamount.val('$' + rangeSlider.slider("values", 0));
     maxamount.val('$' + rangeSlider.slider("values", 1));
+    
+    
 
     /*-------------------
 		Radio Btn

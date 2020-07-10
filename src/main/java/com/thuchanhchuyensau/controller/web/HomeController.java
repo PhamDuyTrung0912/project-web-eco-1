@@ -1,6 +1,5 @@
 package com.thuchanhchuyensau.controller.web;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.thuchanhchuyensau.dto.AdvertingDTO;
 import com.thuchanhchuyensau.dto.CategoryDTO;
-import com.thuchanhchuyensau.dto.GenderDTO;
 import com.thuchanhchuyensau.dto.NewDTO;
 import com.thuchanhchuyensau.dto.ProductDTO;
+import com.thuchanhchuyensau.dto.TagDTO;
 import com.thuchanhchuyensau.service.IAdvertingService;
 import com.thuchanhchuyensau.service.ICategoryService;
-import com.thuchanhchuyensau.service.IGenderService;
 import com.thuchanhchuyensau.service.INewService;
 import com.thuchanhchuyensau.service.IProductService;
+import com.thuchanhchuyensau.service.ITagService;
 import com.thuchanhchuyensau.util.MessageUtil;
 
 @Controller(value = "homeControllerOfWeb")
@@ -47,9 +46,15 @@ public class HomeController {
 		@Autowired
 		private INewService newsService;
 		
+		@Autowired
+		private ITagService tagService;
+		
 		
 		@Autowired
 		private MessageUtil messageUtil;
+		
+		
+		
 	
 	  @RequestMapping(value = "/web/home", method = RequestMethod.GET)
 	   public ModelAndView homePage() {
@@ -84,10 +89,17 @@ public class HomeController {
 		   ModelAndView mav = new ModelAndView("web/ShopPage");
 		   
 		   ProductDTO productDTO=new ProductDTO();
-		   Pageable pageable=new PageRequest(0,3);
+		   TagDTO tagdto=new TagDTO();
+		   
+		   
+		   
+		   Pageable pageable=new PageRequest(0,6);
 		   productDTO.setListResult(productService.findAll(pageable));
+		   tagdto.setListResult(tagService.tags());
+		   
 		   
 		   mav.addObject("model",productDTO);
+		   mav.addObject("tags",tagdto);
 		   
 		   return mav;
 		   
@@ -139,10 +151,26 @@ public class HomeController {
 	  @RequestMapping(value = "/web/cart",method = RequestMethod.GET)
 	  public ModelAndView shoppingCartPage(HttpSession session) {  
 //		  Object obj=session.getAttribute("myCartItems"); 
+		  		  
 		  ModelAndView mav=new ModelAndView("web/shoppingCart");
+		
+		  return mav;
+	  }
+	  
+	  @RequestMapping(value ="/web/product/search",method = RequestMethod.GET)
+	  public ModelAndView ProductSearch(@RequestParam ("keysearch") String key) {  
+//		  Object obj=session.getAttribute("myCartItems"); 
+		  ProductDTO dto=new ProductDTO();
+		  
+		  dto.setListResult(productService.findProductKey(key));
+		    
+		  ModelAndView mav=new ModelAndView("web/ShopPage");
+		  
+		  mav.addObject("model",dto);
 		  	  
 		  return mav;
 	  }
+	  
 	  
 	  
 	  @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)

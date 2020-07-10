@@ -35,7 +35,7 @@ public class TagEntity extends BaseEntity {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
+	} 
 
 	public List<ProductEntity> getProducts() {
 		return products;

@@ -44,8 +44,19 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 	private List<CommentDTO> commentDTOs=new ArrayList<>();
 	
 	
+	private List<TagDTO> tagDTOs=new ArrayList<>();
 	
 	
+	
+	
+	public List<TagDTO> getTagDTOs() {
+		return tagDTOs;
+	}
+
+	public void setTagDTOs(List<TagDTO> tagDTOs) {
+		this.tagDTOs = tagDTOs;
+	}
+
 	public List<CommentDTO> getCommentDTOs() {
 		return commentDTOs;
 	}
