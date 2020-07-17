@@ -25,4 +25,6 @@ public interface IProductService {
 	List<ProductDTO> findProductKey(String key);
 	
 	void deleteProduct(Long id);
+	
+	ProductDTO save(ProductDTO dto);
 }

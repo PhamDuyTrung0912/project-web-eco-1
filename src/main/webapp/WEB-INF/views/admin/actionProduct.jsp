@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+	 <%@ include file="/common/taglib.jsp" %>
+	 
+	<c:url var="APIurl" value="/api/product"/>
 	<!DOCTYPE html>
 
 <html>
@@ -34,28 +36,54 @@
 					 Create Product ...
 					</div>
 						
-			<form>
+			<form:form id="formSubmit" action="${pageContext.request.contextPath }/admin/create" method="POST" enctype="multipart/form-data" modelAttribute="product"  >
 			  <div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>	
-			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    <label for="titleProduct">Title Product</label>	
+			    <form:input type="text" class="form-control"  placeholder="Enter Title" path="name" id="titleProduct"/>
 			  </div>
 			  <div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			    <label for="price">Price Product</label>	
+			    <form:input type="text" class="form-control"  placeholder="Enter Title" path="price"/>
 			  </div>
+			   <div class="form-group">
+			    <label for="shortDescProduct">Short Description Product</label>	
+			    <form:input type="text" class="form-control"  placeholder="Enter Short Description" path="shortDesc"/>
+			  </div>
+			   <div class="form-group">
+			    <label for="contentProduct">Content Product</label>	
+			    <form:input type="text" class="form-control" placeholder="Enter Content" path="content"/>
+			  </div>
+			  		 
 			  <div class="form-group">
-			    <label for="exampleFormControlSelect1">Example select</label>
-			    <select class="form-control" id="exampleFormControlSelect1">
-			      <option>1</option>
-			      <option>2</option>
-			      <option>3</option>
-			      <option>4</option>
-			      <option>5</option>
+			    <label for="CategoryProduct">Category product</label>
+			    <select class="form-control" id="CategoryProduct" name="categoryCode">		    
+			      <option value="">Chọn Thể Loại</option>
+			      <c:forEach var="item" items="${categories.listResult}">
+			      <option value="${item.code}">${item.name}</option>
+			      </c:forEach>
+			     
 			    </select>
 			  </div>
 			  
-			  <button type="submit" class="btn btn-primary">Submit</button>
-			</form>			
+			  <div class="form-group">
+			    <label for="sizeProduct">Size product</label>
+			    <select class="form-control" id="sizeProduct" name="size">
+			      <option value="XL">XL</option>
+			      <option value="L">L</option>
+			      <option value="M">M</option>
+			      <option value="S">S</option>		
+			    </select>
+			  </div>
+			  
+			  <div class="form-group">
+   						 <label for="imageProduct">Image Product</label>
+    					<form:input type="file" class="form-control-file" path="nameImage"/>
+ 				 </div>
+			  
+			  
+			  
+			  <input type="submit"  class="btn btn-primary" id="" value="Submit" />
+			</form:form>			
 												</br>
 
 		
@@ -77,5 +105,49 @@
 
 	</div>
 	<!-- /#wrapper -->
+
+	<script type="text/javascript">
+	
+
+	$('#btnAddOrUpdateNew').click(function (e) {
+	    e.preventDefault();
+	    var data = {};
+	    var formData = $('#formSubmit').serializeArray();
+	    $.each(formData, function (i, v) {
+            data[""+v.name+""] = v.value;  
+        });
+	    var files=$('#imageProduct')[0].files[0];
+	    
+	    if(files != undefined){
+			var reader=new FileReader();
+			reader.onload=function(e){imageProduct
+				data["nameImage"]=e.target.result;
+				data["imageProduct"]=files.name;	
+			};
+			 reader.readAsDataURL(files);
+	    }
+	    
+	    addProduct(data);
+	    console.log(data);
+	
+	});
+	
+	function addProduct(data) {
+        $.ajax({
+            url: '${APIurl}',
+            type: 'POST',
+            contentType:'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+            	console.log(result)
+            },
+            error: function (error) {
+            	console.log(error)
+            }
+        });
+    }
+	
+	</script>
 
 </body>

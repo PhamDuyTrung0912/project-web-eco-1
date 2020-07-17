@@ -1,12 +1,16 @@
 package com.thuchanhchuyensau.api.web;
 
+import java.awt.PageAttributes.MediaType;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +20,7 @@ import com.thuchanhchuyensau.dto.ProductDTO;
 import com.thuchanhchuyensau.dto.TagDTO;
 import com.thuchanhchuyensau.service.IProductService;
 import com.thuchanhchuyensau.service.impl.ProductService;
+import com.thuchanhchuyensau.util.UploadFileUtils;
 
 @RestController(value = "productApiOfWeb")
 public class ProductApi {
@@ -71,6 +76,38 @@ public class ProductApi {
 //		Pageable pageable=new PageRequest(count,6);
 	
 	}
+	
+	
+	@Autowired
+	private UploadFileUtils uploadFile;
+	
+	@PostMapping(value="/api/product",consumes = {org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ProductDTO createNew(@RequestBody ProductDTO productDTO )  {
+		
+	
+//		byte[] decodeBase64=Base64.getDecoder().decode(productDTO.getImageProduct().split(",")[1].getBytes());
+//		
+//		try {
+//			uploadFile.writeOrupdate(decodeBase64,"/"+productDTO.getNameImage());
+//		} catch (IOException e) {
+//			
+//			e.printStackTrace();
+//		}
+//		
+//				
+//		
+//		ProductDTO proDto= productService.save(productDTO);
+//		
+//				
+	
+		return null ;	
+	}	 
+	
+	@PutMapping("/api/product")
+	public String updateNew(@RequestBody ProductDTO proDto) {
+		return "ok";
+	}
+	
 	
 	
 }

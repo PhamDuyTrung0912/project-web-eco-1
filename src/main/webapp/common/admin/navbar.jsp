@@ -13,8 +13,8 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 					<h6 class="dropdown-header">Action:</h6>
-					<a class="dropdown-item" href="<c:url value="/admin/list/product?page=0"/>">Product List</a> 				
-		
+					<a class="dropdown-item" href="<c:url value="/admin/list/product"/>">Product List</a> 				
+					
 				</div>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="charts.html">

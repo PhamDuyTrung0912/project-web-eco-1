@@ -27,7 +27,7 @@ public class ProductEntity extends BaseEntity {
 	@Column
 	private String shortDesc;
 	
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String content;
 	
 	@Column

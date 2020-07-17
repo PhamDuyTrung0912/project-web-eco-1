@@ -13,9 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thuchanhchuyensau.convert.ProductConvert;
 import com.thuchanhchuyensau.dto.CommentDTO;
 import com.thuchanhchuyensau.dto.ProductDTO;
+import com.thuchanhchuyensau.entity.CategoryEntity;
 import com.thuchanhchuyensau.entity.CommentEntity;
 import com.thuchanhchuyensau.entity.MediaEntity;
 import com.thuchanhchuyensau.entity.ProductEntity;
+import com.thuchanhchuyensau.entity.RoleEntity;
+import com.thuchanhchuyensau.entity.UserEntity;
+import com.thuchanhchuyensau.repository.CategoryRepository;
 import com.thuchanhchuyensau.repository.CommentRepository;
 import com.thuchanhchuyensau.repository.MediaRepository;
 import com.thuchanhchuyensau.repository.ProductRepository;
@@ -35,6 +39,10 @@ public class ProductService implements IProductService{
 	
 	@Autowired
 	private CommentRepository commentRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	
 	@Override
 	public List<ProductDTO> findAll(Pageable pageable) {
@@ -124,6 +132,21 @@ public class ProductService implements IProductService{
 			productDTOs.add(productDTO);
 		}
 		return productDTOs;
+	}
+
+	@Override
+	public ProductDTO save(ProductDTO dto) {
+		
+		
+		CategoryEntity categoryEntity =categoryRepository.findOneByCode(dto.getCategoryCode());
+		
+		ProductEntity proEntity =new ProductEntity();
+		proEntity=productConvert.toEntity(dto);
+		proEntity.setCategoryEntity(categoryEntity);
+		
+		return productConvert.toDto(productRepository.save(proEntity));
+	
+	
 	}
 	
 	

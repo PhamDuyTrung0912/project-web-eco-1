@@ -1,13 +1,16 @@
 package com.thuchanhchuyensau.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.thuchanhchuyensau.entity.CommentEntity;
 
-public class ProductDTO extends AbstractDTO<ProductDTO> {
+public class ProductDTO extends AbstractDTO<ProductDTO> implements Serializable  {
 
 	
 	
@@ -25,7 +28,8 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 	
 	private String imageProduct;
 	
-
+	private CommonsMultipartFile[] nameImage;
+	
 	private String size;
 	
 
@@ -151,6 +155,14 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 
 	public void setCategoryCode(String categoryCode) {
 		this.categoryCode = categoryCode;
+	}
+
+	public CommonsMultipartFile[] getNameImage() {
+		return nameImage;
+	}
+
+	public void setNameImage(CommonsMultipartFile[] nameImage) {
+		this.nameImage = nameImage;
 	}
 	
 	

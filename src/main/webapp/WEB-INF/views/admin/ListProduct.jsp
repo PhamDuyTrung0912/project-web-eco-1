@@ -3,6 +3,7 @@
 
     <%@ include file="/common/taglib.jsp" %>
     <c:url var="ImageURL" value="/assets/image" />
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +26,14 @@
 					<li class="breadcrumb-item active">Action</li>
 				</ol>
 
-				
-
-				<!-- DataTables Example -->
+				<div>
+					<a href="<c:url value="/admin/create"/>"><button type="button" class="btn btn-primary"> Add Product</button></a>
+				</div>
+					
+					<br/>
+					
+					
+				<!-- DataTables Example -->						
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fas fa-table"></i> Product List
@@ -111,5 +117,8 @@
 
 	</div>
 	<!-- /#wrapper -->
+	
+	
+	
 </body>
 </html>

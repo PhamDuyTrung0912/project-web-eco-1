@@ -16,12 +16,21 @@
 <!-- Custom styles for this template-->
 <link href="<c:url value='/template/admin/css/sb-admin.css'/>" rel="stylesheet" type="text/css">
 
+	  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js">
+</script>
+	
+
+
+
 </head>
 <body id="page-top">
 
 	<%@ include file="/common/admin/header.jsp" %>
 
 	<dec:body/>
+	
+	
+
 	
 	<!-- Bootstrap core JavaScript-->
 	<script src="<c:url value='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
