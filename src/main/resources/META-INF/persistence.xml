@@ -11,6 +11,7 @@
         <class>com.thuchanhchuyensau.entity.MediaEntity</class>
         <class>com.thuchanhchuyensau.entity.TagEntity</class>   
         <class>com.thuchanhchuyensau.entity.CommentEntity</class>
+        <class>com.thuchanhchuyensau.entity.OrderEntity</class>
     </persistence-unit>
 </persistence>
 

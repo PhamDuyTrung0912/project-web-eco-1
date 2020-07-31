@@ -17,6 +17,19 @@
 					
 				</div>
 			</li>
+			
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="pagesDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <span>Order Manager</span>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
+					<h6 class="dropdown-header">Action:</h6>
+					<a class="dropdown-item" href="<c:url value="/admin/list/order"/>">Order List</a> 				
+					
+				</div>
+			</li>
+			
 			<li class="nav-item"><a class="nav-link" href="charts.html">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
 			</a></li>

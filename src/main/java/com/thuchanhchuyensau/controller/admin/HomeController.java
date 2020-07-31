@@ -78,7 +78,14 @@ public class HomeController {
 	  @RequestMapping(value ="/admin/create", method = RequestMethod.POST)
 	  public ModelAndView doCreatePage(@ModelAttribute("product") ProductDTO product,HttpServletRequest request) {
 		  
-		  return this.doUpload(request, product);
+		  	   
+			  product.setImageProduct(this.doUpload(request, product));
+		       
+		       productService.save(product);
+			  
+	       
+	       ModelAndView mav = new ModelAndView("redirect:/admin/list/product");
+		      return mav;
 		  
 	  }
 	  
@@ -86,9 +93,13 @@ public class HomeController {
 	  @RequestMapping(value = "/admin/update/{id}", method = RequestMethod.GET)
 	   public ModelAndView UpdatePage(@PathVariable("id") Long id) {
 		  
+		  CategoryDTO categoryDTO=new CategoryDTO();
+			 
+		  categoryDTO.setListResult(categoryService.findAll());
 		  ProductDTO dto= productService.findOneById(id);  
 	      ModelAndView mav = new ModelAndView("admin/actionProduct");
-	      mav.addObject("model",dto);
+	      mav.addObject("product",dto);
+	      mav.addObject("categories", categoryDTO);
 	      return mav;
 	   }
 	  
@@ -116,12 +127,20 @@ public class HomeController {
 	   }
 	  
 	  
+	  @RequestMapping(value = "/admin/list/order",method=RequestMethod.GET)
+	  public ModelAndView ListOrderPage() {
+		  
+		  ModelAndView mav = new ModelAndView("admin/OrderList");
+	      
+	      return mav;
+	  }
 	  
-	  private ModelAndView doUpload(HttpServletRequest request, //
+	  
+	  
+	  private String doUpload(HttpServletRequest request, //
 	           ProductDTO productDTO) {
 	 
-	       
-	 
+
 	       // Thư mục gốc upload file.
 	       String uploadRootPath = "D:\\Spring MVC\\btl\\src\\main\\webapp\\assets\\image";
 	       System.out.println("uploadRootPath=" + uploadRootPath);
@@ -133,9 +152,7 @@ public class HomeController {
 	           uploadRootDir.mkdirs();
 	       }
 	       CommonsMultipartFile[] fileData = productDTO.getNameImage();
-	       //
-		       
-	 
+	    		       
 	           // Tên file gốc tại Client.
 	           String name = fileData[0].getOriginalFilename();
 	           System.out.println("Client File Name = " + name);
@@ -144,10 +161,7 @@ public class HomeController {
 	               try {	
 	                   // Tạo file tại Server.
 	                   File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
-	                   	
-	                   
-	                   
-	                   
+	                   	                   
 	                   
 	                   // Luồng ghi dữ liệu vào file trên Server.
 	                   FileOutputStream stream = new FileOutputStream(serverFile);
@@ -163,12 +177,9 @@ public class HomeController {
 	       
 	      String temp=name.substring(0,name.length()-4);
 	      System.out.println("name = " + temp);
-	       productDTO.setImageProduct(temp);
-	       
-	       productService.save(productDTO);
-	       
-	       ModelAndView mav = new ModelAndView("redirect:/admin/list/product");
-		      return mav;
+	      
+	      return temp;
+	      
 	       
 	   }
 	  

@@ -78,7 +78,7 @@
                             <div class="product-details">
                                 <div class="pd-title">
                                     <span>oranges</span>
-                                    <h3>Pure Pineapple</h3>
+                                    <h3>${model.name}</h3>
                                     <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                 </div>
                                 <div class="pd-rating">
@@ -92,7 +92,7 @@
                                 <div class="pd-desc">
                                     <p>Lorem ipsum dolor sit amet, consectetur ing elit, sed do eiusmod tempor sum dolor
                                         sit amet, consectetur adipisicing elit, sed do mod tempor</p>
-                                    <h4>$495.00 <span>629.99</span></h4>
+                                    <h4>${model.price}<span>${model.price*2}</span></h4>
                                 </div>
                                 
                                 <form action="<c:url value='/web/cart/add'/>">
@@ -190,16 +190,17 @@
                                         </div>
                                         <div class="leave-comment">
                                             <h4>Leave A Comment</h4>
-                                            <form action="#" class="comment-form">
+                                            <form action="<c:url value='/web/comment/add'/>" class="comment-form">
                                                 <div class="row">
                                                     <div class="col-lg-6">
-                                                        <input type="text" placeholder="Name">
+                                                        <input type="text" placeholder="Name" name="name">
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <input type="text" placeholder="Email">
+                                                        <input type="text" placeholder="Email" name="email">
                                                     </div>
+                                                    <input type="hidden" value="${model.id}" name="id"/>
                                                     <div class="col-lg-12">
-                                                        <textarea placeholder="Messages"></textarea>
+                                                        <textarea placeholder="Messages" name="content"></textarea>
                                                         <button type="submit" class="site-btn">Send message</button>
                                                     </div>
                                                 </div>

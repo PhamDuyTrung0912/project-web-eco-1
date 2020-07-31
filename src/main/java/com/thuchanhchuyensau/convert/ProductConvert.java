@@ -65,4 +65,21 @@ public class ProductConvert {
 		
 		return proEntity;
 	}
+	
+	public ProductEntity toEntity (ProductEntity proEntity,ProductDTO productDTO) {
+		
+		proEntity.setName(productDTO.getName());
+		proEntity.setPrice(productDTO.getPrice());
+		proEntity.setShortDesc(productDTO.getShortDesc());
+		proEntity.setContent(productDTO.getContent());
+		proEntity.setImageProduct(productDTO.getImageProduct());
+		proEntity.setSize(productDTO.getSize());
+		
+		proEntity.setFrProduct(1);
+		
+		
+		
+		return proEntity;
+	}
+	
 }

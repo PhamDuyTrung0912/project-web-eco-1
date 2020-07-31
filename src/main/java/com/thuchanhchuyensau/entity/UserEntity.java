@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -45,18 +46,19 @@ public class UserEntity extends BaseEntity {
 	
 	
 	
-	@OneToOne(mappedBy = "userEntity")
-	private CommentEntity commentEntity;
+	@OneToMany(mappedBy = "userEntity")
+	private List<CommentEntity> commentEntity;
 	
 	
 	
 	
 	
-	public CommentEntity getCommentEntity() {
+
+	public List<CommentEntity> getCommentEntity() {
 		return commentEntity;
 	}
 
-	public void setCommentEntity(CommentEntity commentEntity) {
+	public void setCommentEntity(List<CommentEntity> commentEntity) {
 		this.commentEntity = commentEntity;
 	}
 

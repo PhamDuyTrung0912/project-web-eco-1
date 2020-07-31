@@ -20,7 +20,7 @@ public class CommentEntity extends BaseEntity {
 	@JoinColumn(name = "product_id")
 	private ProductEntity productE;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	private UserEntity userEntity;
 	
@@ -52,3 +52,4 @@ public class CommentEntity extends BaseEntity {
 	
 	
 }
+	

@@ -36,6 +36,9 @@
 					 Create Product ...
 					</div>
 						
+						
+						
+						
 			<form:form id="formSubmit" action="${pageContext.request.contextPath }/admin/create" method="POST" enctype="multipart/form-data" modelAttribute="product"  >
 			  <div class="form-group">
 			    <label for="titleProduct">Title Product</label>	
@@ -53,14 +56,25 @@
 			    <label for="contentProduct">Content Product</label>	
 			    <form:input type="text" class="form-control" placeholder="Enter Content" path="content"/>
 			  </div>
-			  		 
+			  
+			  <form:hidden path="id" />
 			  <div class="form-group">
 			    <label for="CategoryProduct">Category product</label>
-			    <select class="form-control" id="CategoryProduct" name="categoryCode">		    
+			    <select class="form-control" id="CategoryProduct" name="categoryCode">	
+			    <c:if test="${empty product.categoryCode}">	    
 			      <option value="">Chọn Thể Loại</option>
 			      <c:forEach var="item" items="${categories.listResult}">
 			      <option value="${item.code}">${item.name}</option>
 			      </c:forEach>
+			    </c:if>
+			    <c:if test="${not empty product.categoryCode}">
+                                            <option value="">Chọn loại bài viết</option>
+                                            <c:forEach var="item" items="${categories.listResult}">
+                                                <option value="${item.code}" <c:if test="${item.code == product.categoryCode}">selected="selected"</c:if>>
+                                                        ${item.name}
+                                                </option>
+                                            </c:forEach>
+                                        </c:if>
 			     
 			    </select>
 			  </div>

@@ -34,4 +34,9 @@ public class CommentConvert {
 		return dto;			
 	}
 	
+	public CommentEntity toEntity(CommentDTO commentDTO) {
+		CommentEntity commentEntity=new CommentEntity();
+		commentEntity.setContent(commentDTO.getContent());
+		return commentEntity;
+	}
 }

@@ -135,15 +135,24 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
+	@Transactional
 	public ProductDTO save(ProductDTO dto) {
 		
 		
 		CategoryEntity categoryEntity =categoryRepository.findOneByCode(dto.getCategoryCode());
 		
 		ProductEntity proEntity =new ProductEntity();
+		
+		if(dto.getId()!=null) {
+			ProductEntity oldProduct=productRepository.findOne(dto.getId());
+			oldProduct.setCategoryEntity(categoryEntity);
+			proEntity=productConvert.toEntity(oldProduct,dto);
+			
+		}else {
+		
 		proEntity=productConvert.toEntity(dto);
 		proEntity.setCategoryEntity(categoryEntity);
-		
+		}
 		return productConvert.toDto(productRepository.save(proEntity));
 	
 	

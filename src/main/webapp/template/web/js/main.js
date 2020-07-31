@@ -209,7 +209,7 @@
     /*-------------------
 		Nice Select
     --------------------- */
-    $('.sorting, .p-show').niceSelect();
+    $('.sorting, .p-show').niceSelect(); 
 
     /*------------------
 		Single Product
@@ -249,6 +249,10 @@
 		$button.parent().find('input').val(newVal);
 		
 	});
+	
+	
+	
+		
 
 	
 })(jQuery);

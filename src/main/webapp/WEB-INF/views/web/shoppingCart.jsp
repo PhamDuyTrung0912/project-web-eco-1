@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="total-price first-row" id="totalitem-${map.value.product.id}">$${map.value.product.price*map.value.quantity}</td>
+                                    <td class="total-price first-row" id="totalitem">$${map.value.product.price*map.value.quantity}</td>
                                     <td class="close-td first-row"><a href="<c:url value="/web/remove/${map.value.product.id}" />"><i class="ti-close"></i></a></td>
                                 </tr>
                                 </c:forEach>
@@ -83,7 +83,7 @@
                                     <input type="text" placeholder="Enter your codes">
                                     <button type="submit" class="site-btn coupon-btn">Apply</button>
                                 </form>
-                            </div>
+                            </div>	
                         </div>
                         <div class="col-lg-4 offset-lg-4">
                             <div class="proceed-checkout">
@@ -91,7 +91,7 @@
                                     <li class="subtotal">Subtotal <span>$${sessionScope.myCartTotal}</span></li>
                                     <li class="cart-total">Total <span>$${sessionScope.myCartTotal}</span></li>
                                 </ul>
-                                <a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                <a href="<c:url value="/web/checkout"/>" class="proceed-btn">PROCEED TO CHECK OUT</a>
                             </div>
                         </div>
                        

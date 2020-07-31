@@ -1,5 +1,6 @@
 package com.thuchanhchuyensau.controller.web;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,16 +22,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thuchanhchuyensau.dto.AdvertingDTO;
+import com.thuchanhchuyensau.dto.CartDTO;
 import com.thuchanhchuyensau.dto.CategoryDTO;
+import com.thuchanhchuyensau.dto.CommentDTO;
+import com.thuchanhchuyensau.dto.CustomerDTO;
 import com.thuchanhchuyensau.dto.NewDTO;
+import com.thuchanhchuyensau.dto.OrderDTO;
 import com.thuchanhchuyensau.dto.ProductDTO;
 import com.thuchanhchuyensau.dto.TagDTO;
+import com.thuchanhchuyensau.dto.UserDTO;
 import com.thuchanhchuyensau.service.IAdvertingService;
 import com.thuchanhchuyensau.service.ICategoryService;
+import com.thuchanhchuyensau.service.ICommentService;
 import com.thuchanhchuyensau.service.INewService;
 import com.thuchanhchuyensau.service.IProductService;
 import com.thuchanhchuyensau.service.ITagService;
+import com.thuchanhchuyensau.service.IUserService;
+import com.thuchanhchuyensau.service.impl.CommentService;
 import com.thuchanhchuyensau.util.MessageUtil;
+import com.thuchanhchuyensau.util.SecurityUtils;
 
 @Controller(value = "homeControllerOfWeb")
 public class HomeController {
@@ -52,6 +63,12 @@ public class HomeController {
 		
 		@Autowired
 		private MessageUtil messageUtil;
+		@Autowired
+		private IUserService userService;
+		
+		@Autowired
+		private ICommentService commentService;
+		
 		
 		
 		
@@ -168,6 +185,55 @@ public class HomeController {
 		  
 		  mav.addObject("model",dto);
 		  	  
+		  return mav;
+	  }
+	  
+	  
+	  @RequestMapping(value = "/web/comment/add",method = RequestMethod.GET)
+	  public ModelAndView CommentAdd(@RequestParam("name") String name,@RequestParam("email") String email,@RequestParam("content") String content,@RequestParam("id") Long id ) {
+		  Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		  if(auth!=null) {
+			  String user=auth.getName();
+			  UserDTO userDTO=userService.findByUsername(user);
+			  
+			  CommentDTO commentdto=new CommentDTO();
+			  commentdto.setContent(content);
+			  commentdto.setUserDTO(userDTO);
+			  
+			  String rs=commentService.save(commentdto,id);
+			  
+		  }
+	  
+		
+		  return new ModelAndView("redirect:/web/product/"+id+"");
+	  }
+	  
+	  @RequestMapping(value = "/web/checkout",method = RequestMethod.GET)
+	  	public ModelAndView PageCheckout() {
+		  ModelAndView mav=new ModelAndView("web/Checkout");
+		  
+		  mav.addObject("customer",new CustomerDTO());
+		  return mav;
+	  }
+	  
+	  @RequestMapping(value = "/web/checkout",method = RequestMethod.POST)
+	  	public ModelAndView DoCheck(@ModelAttribute("customer") CustomerDTO customerDTO,HttpSession httpSession,HttpServletRequest request) {
+		  	
+		 httpSession=request.getSession();
+		  HashMap<Long, CartDTO> cartItems = (HashMap<Long, CartDTO>) httpSession.getAttribute("myCartItems");
+		  System.out.println(cartItems);
+		
+		  
+  
+		 OrderDTO orderDTO=new OrderDTO();
+		 
+		  
+		  
+		  
+		  
+		 
+		  httpSession.invalidate();
+		  ModelAndView mav=new ModelAndView("redirect:/web/checkout");
 		  return mav;
 	  }
 	  
