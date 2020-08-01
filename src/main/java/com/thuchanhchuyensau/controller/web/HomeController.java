@@ -79,6 +79,7 @@ public class HomeController {
 	      ModelAndView mav = new ModelAndView("web/home");
 	      
 	      ProductDTO productDTO=new ProductDTO();
+	      ProductDTO productDTO1=new ProductDTO();
 	      AdvertingDTO advertingDTO=new AdvertingDTO();
 	      CategoryDTO categoryDTO=new CategoryDTO();
 	      NewDTO newDTO=new NewDTO();
@@ -86,11 +87,13 @@ public class HomeController {
 	      Pageable pageable=new PageRequest(0,4);
 	      
 	      advertingDTO.setListResult(advertingService.findAll(pageable));
+	      productDTO1.setListResult(productService.findByGender("men"));
 	      productDTO.setListResult(productService.findByGender("women"));
 	      categoryDTO.setListResult(categoryService.findAll());
 	      newDTO.setListResult(newsService.findall());
 	      
 	      mav.addObject("model",productDTO);
+	      mav.addObject("model1",productDTO1);
 	      mav.addObject("adverting",advertingDTO);
 	      mav.addObject("category",categoryDTO);
 	      mav.addObject("news",newDTO);

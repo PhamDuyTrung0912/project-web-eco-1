@@ -89,7 +89,7 @@
 						                        <div class="product-item">
 						                            <div class="pi-pic">					                            
 						                            	<a href="<c:url value='/web/product/${item.id}'/>">
-							                                <img src="${ImageURL}/${item.imageProduct}.jpg" alt="">
+							                                <img src="${ImageURL}/${item.imageProduct}.jpg" alt="" >
 						                                </a>
 						                              						                                
 						                                <div class="sale">Sale</div>
@@ -110,11 +110,11 @@
 						                               
 						                                </div>
 						                                <a href="#">
-						                                    <h5>Pure Pineapple</h5>
+						                                    <h5><c:url value="${item.name}"/></h5>	
 						                                </a>
 						                                <div class="product-price">
-						                                    $14.00
-						                                    <span>$35.00</span>
+						                                   <c:url value="$${item.price}"/>
+						                                    <span class="ml-2"><c:url value="$${item.price+2}"/></span>
 						                                </div>
 						                            </div>
 						                        </div>
@@ -219,30 +219,40 @@
                     <div class="product-slider owl-carousel">
                     
                     
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="https://via.placeholder.com/370x450" alt="">
-                                <div class="sale">Sale</div>
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
-                                </div>
-                            </div>
-                        </div>
+                       <c:forEach var="item" items="${model1.listResult}">
+						                        <div class="product-item">
+						                            <div class="pi-pic">					                            
+						                            	<a href="<c:url value='/web/product/${item.id}'/>">
+							                                <img src="${ImageURL}/${item.imageProduct}.jpg" alt="">
+						                                </a>
+						                              						                                
+						                                <div class="sale">Sale</div>
+						                                <div class="icon">
+						                                    <i class="icon_heart_alt"></i>
+						                                </div>
+						                                <ul>
+						                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+						                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+						                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+						                                </ul>
+						                            </div>
+						                            <div class="pi-text">
+						                                <div class="catagory-name"> 
+						                                      <c:forEach var="gen" items="${item.listgender}">
+						                                      	${gen.name}
+						                                      </c:forEach>            	
+						                               
+						                                </div>
+						                                <a href="#">
+						                                    <h5>Pure Pineapple</h5>
+						                                </a>
+						                                <div class="product-price">
+						                                    $14.00
+						                                    <span>$75.00</span>
+						                                </div>
+						                            </div>
+						                        </div>
+						                       </c:forEach>
                                             
                     </div>
                 </div>

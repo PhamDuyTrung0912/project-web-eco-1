@@ -6,6 +6,7 @@
 	<c:url var="loadMore" value="/api/loadmore" />
 	<c:url var="filterGender" value="/api/filter/gender" />
 	<c:url var="filterTag" value="/api/filter/tag" />
+	<c:url var="filterPrice" value="/api/filter/price" />
 <!DOCTYPE html>
 
 
@@ -55,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                data-min="33" data-max="98">
+                                data-min="0" data-max="98">
                                 <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
@@ -104,7 +105,7 @@
                                     <div class="pi-pic">
                                     
                                  	  <a href="<c:url value='/web/product/${map.id}'/>">
-	                                <img src="${ImageURL}/${map.imageProduct}.jpg" alt="">
+	                                <img src="${ImageURL}/${map.imageProduct}.jpg" alt=""  width="250px" height="300px" >
                              		   </a>   
                                         
                                         <div class="sale pp-sale">Sale</div>
@@ -120,11 +121,11 @@
                                     <div class="pi-text">
                                         <div class="catagory-name">Towel</div>
                                         <a href="#">
-                                            <h5>Pure Pineapple</h5>
+                                            <h5><c:url value="${map.name}"/></h5>
                                         </a>
                                         <div class="product-price">
-                                            $14.00
-                                            <span>$35.00</span>
+                                          <c:url value="$${map.price}"/>
+                                            <span class="ml-2"><c:url value="$${map.price+2}"/></span>
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +148,9 @@
 	
 	<script type="text/javascript">
 		
+	
+	
+	
 	
 	$("a[id^='btn']").click(function(e){
 		e.preventDefault();
@@ -182,9 +186,15 @@
 	
 	$('#btnFilter').click(function(e){
 		e.preventDefault();
-		var a=$("div[data-min]")[0].attributes[1].value;
-		console.log(a);
+		data={}
+		var min=$('#minamount').val().slice(1);
+		var max=$('#maxamount').val().slice(1);
+		data['minprice']=min;
+		data['maxprice']=max;
 		
+		console.log(data);
+		
+		FetchDataByPrice(data);
 	})
 	
 	
@@ -205,9 +215,7 @@
 		})
 		
 		
-		
-		
-		
+
 		function Temp(rs){
 			var load=$('.product-list .row');
 			var url=$(location).attr('href').split('btl',1)[0];
@@ -226,7 +234,7 @@
 					+'<div class="product-item">'
 						+'<div class="pi-pic">'
 						+'<a href="'+href+'">'
-               				 +'<img src="'+src+'" alt="">'
+               				 +'<img src="'+src+'" alt="" width="250px" height="300px">'
                				 +'</a>'
              				   +'<div class="sale pp-sale">Sale</div>'
               					  +'<div class="icon">'
@@ -241,11 +249,11 @@
                 		+'<div class="pi-text">'
                         +'<div class="catagory-name">Towel</div>'
                        + '<a href="#">'
-                           + '<h5>Pure Pineapple</h5>'
+                           + '<h5>'+value.name+'</h5>'
                        +'</a>'
                         +'<div class="product-price">'
-                          +  '$14.00  '
-                           + '<span>$35.00</span>'
+                          +  '$'+value.price+''
+                           + '<span class="ml-2" >$'+(value.price+2)+'</span>'
                         +'</div>'
                    + '</div>'
 					+'</div>'
@@ -257,6 +265,27 @@
         
 			});
 		
+		}
+		
+		
+		
+		function FetchDataByPrice(data){
+			$.ajax({
+				url:'${filterPrice}',
+				type:'POST',
+				contentType:'application/json',
+				data:JSON.stringify(data),
+				dataType:'json',
+				success: function(rs){
+					var load=$('.product-list .row').empty();
+					Temp(rs);
+					
+					
+				},
+				error: function(err){
+					
+				}
+			})
 		}
 		
 		

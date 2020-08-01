@@ -24,6 +24,52 @@ public class CartController {
 	@Autowired
 	private IProductService productService;
 	
+	
+	
+	@RequestMapping(value = "/web/cart/dec/{id}",method = RequestMethod.GET)
+	public ModelAndView DoDec(HttpSession session,@PathVariable("id") long id) {
+		
+		 HashMap<Long, CartDTO> cartItems = (HashMap<Long, CartDTO>) session.getAttribute("myCartItems");
+		
+		 ProductDTO product = productService.findOneById(id);
+		 if (product != null) {
+			 if (cartItems.containsKey(id)) {
+				 CartDTO item = cartItems.get(id);
+	                item.setProduct(product);
+	                item.setQuantity(item.getQuantity()-1);
+	                cartItems.put(id, item);		 
+			 }
+			 
+		 }
+		session.setAttribute("myCartItems", cartItems);
+        session.setAttribute("myCartTotal", totalPrice(cartItems));
+        session.setAttribute("myCartNum", cartItems.size());
+      return  new ModelAndView("redirect:/web/cart");
+	}
+	
+	
+	@RequestMapping(value = "/web/cart/inc/{id}",method = RequestMethod.GET)
+	public ModelAndView DoInc(HttpSession session,@PathVariable("id") long id) {
+		
+		 HashMap<Long, CartDTO> cartItems = (HashMap<Long, CartDTO>) session.getAttribute("myCartItems");
+		
+		 ProductDTO product = productService.findOneById(id);
+		 if (product != null) {
+			 if (cartItems.containsKey(id)) {
+				 CartDTO item = cartItems.get(id);
+	                item.setProduct(product);
+	                item.setQuantity(item.getQuantity()+1);
+	                cartItems.put(id, item);		 
+			 }
+			 
+		 }
+		session.setAttribute("myCartItems", cartItems);
+        session.setAttribute("myCartTotal", totalPrice(cartItems));
+        session.setAttribute("myCartNum", cartItems.size());
+      return  new ModelAndView("redirect:/web/cart");
+	}
+	
+	
 	 @RequestMapping(value = "/web/cart/add", method = RequestMethod.GET)
 	    public ModelAndView viewAdd( HttpSession session, @RequestParam("id") long id,@RequestParam("quantity") int quantity) {
 	        HashMap<Long, CartDTO> cartItems = (HashMap<Long, CartDTO>) session.getAttribute("myCartItems");

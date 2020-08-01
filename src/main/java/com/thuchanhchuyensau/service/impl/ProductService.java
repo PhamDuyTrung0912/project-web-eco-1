@@ -157,6 +157,17 @@ public class ProductService implements IProductService{
 	
 	
 	}
+
+	@Override
+	public List<ProductDTO> findByPrice(int min, int max) {
+			List<ProductDTO> productDTOs=new ArrayList<>();
+			List<ProductEntity> productEntities=productRepository.findByPrice(min, max);
+			for(ProductEntity item:productEntities) {
+				ProductDTO productDTO=productConvert.toDto(item);
+				productDTOs.add(productDTO);
+			}
+			return productDTOs;
+	}
 	
 	
 }

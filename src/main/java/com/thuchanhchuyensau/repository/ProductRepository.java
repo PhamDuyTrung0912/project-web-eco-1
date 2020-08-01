@@ -23,6 +23,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 			+ "on product_tag.tag_id=tag.id where tag.name= :type limit 0,5  ; ", nativeQuery=true)
 	List<ProductEntity> findByTag_Type(@Param("type") String type);
 	
+	@Query(value="select * from product where product.price > :min and product.price < :max",nativeQuery=true)
+	List<ProductEntity> findByPrice(@Param("min") int min,@Param("max") int max);
+	
 	ProductEntity findOneById(Long id);
 
 	@Query(value = "select * from product inner join category on produc t.category_id=category.id where category.name=:filter limit 0,5 ; ",nativeQuery = true)
@@ -34,6 +37,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 	@Query(value = "delete product_gender.*,product_tag.* from product inner join product_gender on product_gender.product_id=product.id "
 			+ "inner join product_tag on product_tag.product_id=product.id where product.id=:id;",nativeQuery = true)
 	void deleteRelationshipProduct(@Param("id") Long id);
+	
 	
 		
 }

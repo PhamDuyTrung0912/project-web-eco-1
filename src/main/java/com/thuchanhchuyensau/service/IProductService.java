@@ -18,6 +18,8 @@ public interface IProductService {
 	
 	List<ProductDTO> findByTag(String type);
 	
+	List<ProductDTO> findByPrice(int min,int max);
+	
 	ProductDTO findOneById(Long id);
 
 	List<ProductDTO> findByFilter(String filter);

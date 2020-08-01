@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ include file="/common/taglib.jsp" %>
 	<c:url var="ImageURL" value="/assets/image" />
+	<c:url var="DecURL" value="/web/cart/dec	" />
 	
 	<html>
 		<head>
@@ -9,9 +10,7 @@
 		<title>Shopping Cart</title>
 		</head>
 		<body>
-			<div id="preloder">
-        <div class="loader"></div>
-    </div>
+	
 
   
 
@@ -60,7 +59,10 @@
                                     <td class="qua-col first-row">
                                         <div class="quantity">
                                             <div class="pro-qty">
+                                            	<input type="hidden" id="productID" value="${map.value.product.id}" />
+                                            	<a style="border: none; background: white; z-index: 2" class="dec qtybtn" href="<c:url value="/web/cart/dec/${map.value.product.id}" />">-</a>
                                                 <input type="text" value="${map.value.quantity}" class="qtt">
+                                               <a style="border: none; background: white;" class="inc qtybtn" href="<c:url value="/web/cart/inc/${map.value.product.id}" />">+</a>
                                             </div>
                                         </div>
                                     </td>
@@ -105,28 +107,8 @@
 		<script type="text/javascript">
 			
 			
-			function Reload(){
-		
-			$('.qtt').each(function(index,value){
-					console.log("quantity",$(value)[0].value);	
-			});
-			
-			}
-			
-			
-			var proQty = $('.pro-qty');  
-			proQty.on('click', '.qtybtn', function () {
-				
-				
-				
-			})
-			
-		
-		
-			
-		
-	
-			
+
+
 		 
 		
 		</script>

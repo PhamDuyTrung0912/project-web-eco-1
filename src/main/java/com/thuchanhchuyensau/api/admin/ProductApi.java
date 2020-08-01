@@ -41,4 +41,6 @@ public class ProductApi {
 //	public String updateNew(@RequestBody ProductDTO proDto) {
 //		return "ok";
 //	}
+	
+	
 }

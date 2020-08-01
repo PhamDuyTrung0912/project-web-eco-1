@@ -12,10 +12,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mysql.cj.ParseInfo;
 import com.thuchanhchuyensau.dto.GenderDTO;
 import com.thuchanhchuyensau.dto.PageableDTO;
+import com.thuchanhchuyensau.dto.PriceDTO;
 import com.thuchanhchuyensau.dto.ProductDTO;
 import com.thuchanhchuyensau.dto.TagDTO;
 import com.thuchanhchuyensau.service.IProductService;
@@ -49,7 +52,21 @@ public class ProductApi {
 	
 	}
 	
-
+	@PostMapping("/api/filter/price")
+	public List<ProductDTO> getProductPrice(@RequestBody PriceDTO priceDTO ){
+		
+		
+		int min= Integer.parseInt(priceDTO.getMinprice());
+		int max= Integer.parseInt(priceDTO.getMaxprice());
+		
+		List<ProductDTO> list=new ArrayList<ProductDTO>();
+		
+		list=productService.findByPrice(min, max);
+		return list;
+		
+//		Pageable pageable=new PageRequest(count,6);
+	
+	}
 	
 	@PostMapping("/api/filter/gender")
 	public List<ProductDTO> getProductGender(@RequestBody GenderDTO genderDTO){
